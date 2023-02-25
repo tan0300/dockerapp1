@@ -22,7 +22,8 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            docker tag test-jonathan:latest 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
+
+            docker tag dockerapp1:latest 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
             docker push 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
     aws-ecr/build-and-push-image:
           aws-access-key-id: ${AWS_ACCESS_KEY}
