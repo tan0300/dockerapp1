@@ -1,30 +1,10 @@
 version: 2
 orbs:
   aws-ecr: circleci/aws-ecr@7.0.0
-jobs:
-  build:
-    working_directory: /dockerapp1
-    docker:
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache py-pip=9.0.0-r1
-            pip install docker-compose==1.15.0
-      - run:
-          name: Run tests
-          command: |
-            docker-compose up -d
-            docker-compose run dockerapp1 python test.py
-      - deploy:
-          name: Push application Docker image
-          command: |
-            docker tag dockerapp1_dockerapp1 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
-            docker push 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
-    aws-ecr/build-and-push-image:
+workflows:
+  push-to-ecr:
+    jobs:
+      - aws-ecr/build-and-push-image:
           aws-access-key-id: ${AWS_ACCESS_KEY}
           aws-secret-access-key: ${AWS_SECRET_KEY}
           region: ${AWS_REGION}
