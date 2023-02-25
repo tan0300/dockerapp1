@@ -20,6 +20,11 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            echo AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY} | docker login --username AWS --password-stdin 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com
             docker tag test-jonathan:latest 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
             docker push 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
+    aws-ecr/build-and-push-image:
+          aws-access-key-id: ${AWS_ACCESS_KEY}
+          aws-secret-access-key: ${AWS_SECRET_KEY}
+          region: ${AWS_REGION}
+          repository: ${AWS_REPO}
+          tag: latest
