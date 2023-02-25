@@ -8,5 +8,5 @@ workflows:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_SECRET_KEY
           region: AWS_REGION
-          repository: AWS_REPO
+          repo: AWS_REPO
           tag: latest
