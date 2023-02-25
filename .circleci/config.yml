@@ -9,6 +9,6 @@ workflows:
           aws-secret-access-key: AWS_SECRET_KEY
           registry-id: AWS_REGISTRY_ID
           region: ${AWS_REGION}
-          repo: AWS_REPO
+          repo: 'test-jonathan'
           tag: latest
           
