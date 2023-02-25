@@ -1,4 +1,6 @@
 version: 2
+orbs:
+  aws-ecr: circleci/aws-ecr@7.0.0
 jobs:
   build:
     working_directory: /dockerapp1
