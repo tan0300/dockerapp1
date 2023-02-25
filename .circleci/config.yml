@@ -3,7 +3,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@8.2.1
   
 workflows:
-  build-and-push-image:
+  build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
           aws-access-key-id: ${AWS_ACCESS_KEY}
