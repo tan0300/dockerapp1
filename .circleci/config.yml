@@ -5,8 +5,8 @@ workflows:
   build_and_push_image:
     jobs:
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: ${AWS_ACCESS_KEY}
-          aws-secret-access-key: ${AWS_SECRET_KEY}
-          region: ${AWS_REGION}
-          repository: ${AWS_REPO}
+          aws-access-key-id: $AWS_ACCESS_KEY
+          aws-secret-access-key: $AWS_SECRET_KEY
+          region: $AWS_REGION
+          repository: $AWS_REPO
           tag: latest
