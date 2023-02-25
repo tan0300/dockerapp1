@@ -20,8 +20,6 @@ jobs:
       - deploy:
           name: Push application Docker image
           command: |
-            docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
-            docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/dockerapp1:$CIRCLE_SHA1
-            docker tag dockerapp_dockerapp $DOCKER_HUB_USER_ID/dockerapp1:latest
-            docker push $DOCKER_HUB_USER_ID/dockerapp:$CIRCLE_SHA1
-            docker push $DOCKER_HUB_USER_ID/dockerapp1:latest
+            echo AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${AWS_SECRET_KEY} | docker login --username AWS --password-stdin 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com
+            docker tag test-jonathan:latest 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
+            docker push 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
