@@ -4,6 +4,7 @@ orbs:
 workflows:
   build_and_push_images:
     jobs:
+      - checkout
       - aws-ecr/build-and-push-image:
           aws-access-key-id: AWS_ACCESS_KEY
           aws-secret-access-key: AWS_SECRET_KEY
@@ -12,13 +13,14 @@ workflows:
           repo: 'test-jonathan'
           tag: latest
           assume-web-identity: true
-      - runner-test:
-          requires:
-                - aws-ecr/build-and-push-image
+      - run:
+          name: Deploy
+          command: |
+            docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com\test-jonathan
 
 jobs:
   runner-test:
     machine: true
     resource_class: tan0300/test2
     steps:
-      - run: 'docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com\test-jonathan'
+      - run: ''
