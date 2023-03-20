@@ -20,5 +20,4 @@ jobs:
     machine: true
     resource_class: tan0300/test2
     steps:
-      - docker/pull:
-          images: '144517920453.dkr.ecr.ap-southeast-1.amazonaws.com\test-jonathan'
+      - run: 'docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com\test-jonathan'
