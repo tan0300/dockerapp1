@@ -11,11 +11,19 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-      - runner-test
-      
+      - ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          registry-id: AWS_REGISTRY_ID
+          region: ${AWS_REGION}
+          repo: 'test-jonathan'
+          tag: latest
+      -
+
 jobs:
   runner-test:
     machine: true
-    resource_class: tan0300/windows-test
+    resource_class: tan0300/test2
     steps:
-      - run: echo "Hi I'm on Runners!"
+      - docker/pull:
+          images: '144517920453.dkr.ecr.ap-southeast-1.amazonaws.com\test-jonathan'
