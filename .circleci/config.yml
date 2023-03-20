@@ -11,6 +11,13 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
+      - aws-ecr/ecr-login:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          registry-id: AWS_REGISTRY_ID
+          region: ${AWS_REGION}
+          repo: 'test-jonathan'
+          tag: latest
       - runner-test:
           requires:
                 - aws-ecr/build-and-push-image
