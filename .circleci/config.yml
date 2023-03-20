@@ -1,11 +1,14 @@
-version: 2.1
+version: '2.1'
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
 workflows:
-  testing:
+  build_and_push_image:
     jobs:
-      - runner-test
-jobs:
-  runner-test:
-    machine: true
-    resource_class: tan0300/windows-test
-    steps:
-      - run: echo "Hi I'm on Runners!"
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          registry-id: AWS_REGISTRY_ID
+          region: ${AWS_REGION}
+          repo: 'test-jonathan'
+          tag: latest
+          
