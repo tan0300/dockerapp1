@@ -21,11 +21,11 @@ jobs:
           aws_secret_access_key: $AWS_SECRET_KEY
     steps:
       - run:
-          name: "Full Test Suite"
-          command: "testing...."
+          name: "docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan"
+          command: ""
       - run:
           name: "Deploy to Production Infrastructure"
-          command: "something something darkside.... cli"
+          command: ""
 
 workflows:
   version: 2
