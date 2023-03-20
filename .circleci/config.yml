@@ -11,4 +11,11 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-          
+      - runner-test
+      
+jobs:
+  runner-test:
+    machine: true
+    resource_class: tan0300/windows-test
+    steps:
+      - run: echo "Hi I'm on Runners!"
