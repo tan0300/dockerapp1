@@ -12,7 +12,7 @@ jobs:
           command: "ls"
       - run:
           name: "Deploy to Staging Infrastructure"
-          command: "ls"
+          command: "docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan"
   deploy:
     docker:
       - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
