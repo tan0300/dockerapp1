@@ -1,28 +1,45 @@
-version: '2.1'
-orbs:
-  aws-ecr: circleci/aws-ecr@8.2.1
-  aws-ecs: circleci/aws-ecs@0.0.3
-  aws-cli: circleci/aws-cli@0.1.1
-
-workflows:
-  build_and_push_images:
-    jobs:
-      - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_SECRET_KEY
-          registry-id: AWS_REGISTRY_ID
-          region: ${AWS_REGION}
-          repo: 'test-jonathan'
-          tag: latest
-      - deploy-to-prod
+version: 2
 jobs:
-  runner-test:
-    machine: true
-    resource_class: tan0300/test2
-    steps:
-      - run: ''
-    deploy-to-prod:
+  build:
+    docker:
       - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
         aws_auth:
           aws_access_key_id: $AWS_ACCESS_KEY
           aws_secret_access_key: $AWS_SECRET_KEY
+    steps:
+      - run:
+          name: "Every Day Tests"
+          command: "testing...."
+      - run:
+          name: "Deploy to Staging Infrastructure"
+          command: "something something darkside.... cli"
+  deploy:
+    docker:
+      - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY
+          aws_secret_access_key: $AWS_SECRET_KEY
+    steps:
+      - run:
+          name: "Full Test Suite"
+          command: "testing...."
+      - run:
+          name: "Deploy to Production Infrastructure"
+          command: "something something darkside.... cli"
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /^\d{4}\.\d+$/
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d{4}\.\d+$
