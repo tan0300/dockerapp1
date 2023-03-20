@@ -14,14 +14,14 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-      - deploy
+      - deploy-to-prod
 jobs:
   runner-test:
     machine: true
     resource_class: tan0300/test2
     steps:
       - run: ''
-    deploy:
+    deploy-to-prod:
       - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
         aws_auth:
           aws_access_key_id: $AWS_ACCESS_KEY
