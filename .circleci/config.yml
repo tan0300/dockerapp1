@@ -3,6 +3,7 @@ orbs:
   aws-ecr: circleci/aws-ecr@8.2.1
   aws-ecs: circleci/aws-ecs@0.0.3
   aws-cli: circleci/aws-cli@0.1.1
+
 workflows:
   build_and_push_images:
     jobs:
@@ -13,12 +14,15 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-      - aws-cli/install
-      - aws-ecr/ecr-login
-      - runner-test
+      - deploy
 jobs:
   runner-test:
     machine: true
     resource_class: tan0300/test2
     steps:
       - run: ''
+    deploy:
+      - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
+        aws_auth:
+          aws_access_key_id: $AWS_ACCESS_KEY
+          aws_secret_access_key: $AWS_SECRET_KEY
