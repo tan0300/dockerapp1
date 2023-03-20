@@ -11,7 +11,7 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-          docker-login: true
+          assume-web-identity: true
       - runner-test:
           requires:
                 - aws-ecr/build-and-push-image
