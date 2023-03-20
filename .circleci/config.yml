@@ -9,10 +9,10 @@ jobs:
     steps:
       - run:
           name: "Every Day Tests"
-          command: |
+          command: "ls"
       - run:
           name: "Deploy to Staging Infrastructure"
-          command: |
+          command: "ls"
   deploy:
     docker:
       - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
@@ -22,11 +22,10 @@ jobs:
     steps:
       - run:
           name: "Full Test Suite"
-          command: |
-            docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
+          command: docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
       - run:
           name: "Deploy to Production Infrastructure"
-          command: |
+          command: "ls"
 
 workflows:
   version: 2
