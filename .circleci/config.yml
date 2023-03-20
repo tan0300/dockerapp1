@@ -9,7 +9,7 @@ jobs:
     steps:
       - run:
           name: "Every Day Tests"
-          command: "docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan"
+          command: ""
       - run:
           name: "Deploy to Staging Infrastructure"
           command: ""
@@ -21,7 +21,7 @@ jobs:
           aws_secret_access_key: $AWS_SECRET_KEY
     steps:
       - run:
-          name: "docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan"
+          name: "Full Test Suite"
           command: ""
       - run:
           name: "Deploy to Production Infrastructure"
