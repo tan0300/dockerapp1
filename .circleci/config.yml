@@ -15,7 +15,6 @@ workflows:
       - runner-test:
           requires:
                 - aws-ecr/build-and-push-image
-                - aws-ecr/ecr-login
 
 jobs:
   runner-test:
