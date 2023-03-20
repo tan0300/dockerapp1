@@ -1,45 +1,20 @@
 version: 2
 jobs:
   build:
+    working_directory: /dockerapp1
     docker:
-      - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
-        aws_auth:
-          aws_access_key_id: $AWS_ACCESS_KEY
-          aws_secret_access_key: $AWS_SECRET_KEY
+      - image: docker:17.05.0-ce-git
+    machine: true
     steps:
+      - checkout
+      - setup_remote_docker
       - run:
-          name: "Every Day Tests"
-          command: "ls"
+          name: Install dependencies
+          command: |
+            apk add --no-cache py-pip=9.0.0-r1
+            pip install docker-compose==1.15.0
       - run:
-          name: "Deploy to Staging Infrastructure"
-          command: "docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan"
-  deploy:
-    docker:
-      - image: 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
-        aws_auth:
-          aws_access_key_id: $AWS_ACCESS_KEY
-          aws_secret_access_key: $AWS_SECRET_KEY
-    steps:
-      - run:
-          name: "Full Test Suite"
-          command: docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan
-      - run:
-          name: "Deploy to Production Infrastructure"
-          command: "ls"
-
-workflows:
-  version: 2
-  main:
-    jobs:
-      - build:
-          filters:
-            tags:
-              only: /^\d{4}\.\d+$/
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^\d{4}\.\d+$
+          name: Run tests
+          command: |
+            docker-compose up -d
+            docker-compose run dockerapp1 python test.py
