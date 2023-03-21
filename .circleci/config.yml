@@ -20,6 +20,4 @@ jobs:
     steps:
       - run:
           name: Deploy
-          command: aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 144517920453.dkr.ecr.${AWS_REGION}.amazonaws.com |
-            docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
-            docker run --name test -d -p 8080:80 test-jonathan:latest
+          command: aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 144517920453.dkr.ecr.${AWS_REGION}.amazonaws.com | whoami
