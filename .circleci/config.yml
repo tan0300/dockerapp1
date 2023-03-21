@@ -5,11 +5,11 @@ workflows:
   test_is_test:
     jobs:
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY
-          aws-secret-access-key: AWS_SECRET_KEY
-          registry-id: AWS_REGISTRY_ID
-          region: ${AWS_REGION}
-          repo: 'test-jonathan'
+          aws-access-key-id: AWS_ACCESS_KEY2
+          aws-secret-access-key: AWS_SECRET_KEY2
+          registry-id: AWS_REGISTRY_ID2
+          region: ${AWS_REGION2}
+          repo: 'sapphirestudios'
           tag: latest
 
 jobs:
