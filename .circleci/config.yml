@@ -11,6 +11,7 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
+      - runner-test
 
 jobs:
   runner-test:
