@@ -11,9 +11,6 @@ workflows:
           region: ${AWS_REGION}
           repo: 'test-jonathan'
           tag: latest
-      - pull_image:
-          requires:
-                - aws-ecr/build-and-push-image
 
 jobs:
   runner-test:
