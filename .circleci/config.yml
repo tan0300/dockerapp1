@@ -1,17 +1,27 @@
-version: 2
+version: '2.1'
+orbs:
+  aws-ecr: circleci/aws-ecr@8.2.1
+workflows:
+  build_and_push_image:
+    jobs:
+      - aws-ecr/build-and-push-image:
+          aws-access-key-id: AWS_ACCESS_KEY
+          aws-secret-access-key: AWS_SECRET_KEY
+          registry-id: AWS_REGISTRY_ID
+          region: ${AWS_REGION}
+          repo: 'test-jonathan'
+          tag: latest
+      - pull_image:
+          requires:
+                - aws-ecr/build-and-push-image
+
 jobs:
-  build:
+  runner-test:
     machine: true
+    resource_class: tan0300/test2
     steps:
-      - checkout
-      - setup_remote_docker
       - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache py-pip=9.0.0-r1
-            pip install docker-compose==1.15.0
-      - run:
-          name: Run tests
-          command: |
-            docker-compose up -d
-            docker-compose run dockerapp1 python test.py
+          name: Deploy
+          command: aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin 144517920453.dkr.ecr.${AWS_REGION}.amazonaws.com |
+            docker pull 144517920453.dkr.ecr.ap-southeast-1.amazonaws.com/test-jonathan:latest
+            docker run --name test -d -p 8080:80 test-jonathan:latest
