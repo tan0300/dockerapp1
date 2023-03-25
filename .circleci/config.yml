@@ -11,6 +11,7 @@ workflows:
           region: ${AWS_REGION2}
           repo: 'sapphirestudios'
           tag: latest
+      - runner-test
 
 jobs:
   runner-test:
