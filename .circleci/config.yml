@@ -11,15 +11,16 @@ workflows:
           region: ${AWS_REGION2}
           repo: 'sapphirestudios'
           tag: latest
-      - runner-test
+      - runner-test:
+          requires:
+            - aws-ecr/build-and-push-image
+        
 
 jobs:
   
   runner-test:
     machine: true
     resource_class: sapphire-runner
-    depends-on:
-      aws-ecr/build-and-push-image
     steps:
       - run:
           name: Deploy
