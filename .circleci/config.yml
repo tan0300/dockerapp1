@@ -20,7 +20,7 @@ jobs:
   
   runner-test:
     machine: true
-    resource_class: tan0300/test2
+    resource_class: Studios-Sapphire/sapphire-runner
     steps:
       - run:
           name: Deploy
