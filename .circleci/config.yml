@@ -14,9 +14,12 @@ workflows:
       - runner-test
 
 jobs:
+  
   runner-test:
     machine: true
     resource_class: sapphire-runner
+    depends-on:
+      aws-ecr/build-and-push-image
     steps:
       - run:
           name: Deploy
