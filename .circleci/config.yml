@@ -27,7 +27,7 @@ jobs:
           command: aws ecr get-login-password --region ${AWS_REGION2} | 
             docker login --username AWS --password-stdin ${AWS_REGISTRY_ID2}.dkr.ecr.${AWS_REGION2}.amazonaws.com | 
             docker pull ${AWS_REGISTRY_ID2}.dkr.ecr.${AWS_REGION2}.amazonaws.com/${AWS_REPO2}:latest |
-            docker rm test-docker |
+            docker stop test-docker || true && docker rm test-docker || true |
             docker run -p 3005:3005 --name="test-docker" -dit  ${AWS_REGISTRY_ID2}.dkr.ecr.${AWS_REGION2}.amazonaws.com/${AWS_REPO2}:latest
 
 
